@@ -57,7 +57,7 @@
     background:linear-gradient(90deg,#8fe33f,#c6f24e 55%,#7cf0c4);transition:width .35s}
 
   /* ================= DIAS ================= */
-  .grid{margin-top:14px}
+  .grid{margin-top:10px}
   details.day{
     background:var(--card);border:1px solid var(--line);border-radius:18px;
     margin-bottom:12px;overflow:hidden;transition:border-color .25s;
@@ -196,19 +196,12 @@
   @media print{
     body{background:#fff;color:#000}
     header.top{position:static;background:#fff}
-    .actions,.kg,.lb,.toast,.stats,.hint,.cal,.weekbar{display:none!important}
+    .actions,.kg,.st-in,.st-btn,.lb,.toast,.hint,.cal,.daynav,.cardio-time{display:none!important}
     details.day{break-inside:avoid;background:#fff;border-color:#bbb}
     details.day>summary{color:#000}
     .name,.f,.meta,.cue{color:#000}
     .media img{max-height:150px}
   }
-
-  /* ================= RESUMO / ESTATISTICAS ================= */
-  .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 4px;text-align:center;min-width:0}
-  .stat b{display:block;font-size:17px;font-weight:800;letter-spacing:-.4px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .stat span{display:block;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-top:3px}
-  .stat.hl b{color:var(--accent)}
 
   /* ================= AVISO ================= */
   .hint{display:none;position:relative;margin-top:12px;padding:12px 42px 12px 14px;border-radius:14px;font-size:13px;line-height:1.5;color:#cdd6bd;background:rgba(198,242,78,.07);border:1px solid rgba(198,242,78,.26)}
@@ -236,15 +229,38 @@
   .cal-day.complete{background:rgba(94,230,168,.16);border-color:rgba(94,230,168,.55);color:var(--green)}
   .cal-day.missed{background:rgba(255,123,114,.08);border-color:rgba(255,123,114,.32);color:var(--danger)}
   .cal-day.today{box-shadow:0 0 0 2px var(--accent) inset}
+  .cal-day.sel{outline:2px solid var(--accent);outline-offset:-2px}
   .cal-day small{font-size:9px;font-weight:800;line-height:1;opacity:.9}
   .cal-legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:12px;font-size:11px;font-weight:600;color:var(--muted)}
   .cal-legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 
-  /* ================= SEMANA ================= */
-  .weekbar{display:flex;align-items:center;gap:8px;margin:14px 0 10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:7px}
-  .weekbar button{width:42px;height:40px;flex:none;font-size:18px;border-radius:10px;background:#1b202a}
-  .weekbar .wlabel{flex:1;text-align:center;font-size:13.5px;font-weight:800;line-height:1.25;color:var(--txt);min-width:0}
-  .weekbar #todayBtn{width:auto;padding:0 13px;font-size:13px;font-weight:800;color:var(--accent);background:var(--accent-soft);border-color:rgba(198,242,78,.3)}
+  /* ================= NAVEGACAO DOS DIAS ================= */
+  .daynav{display:flex;align-items:center;gap:8px;margin:14px 0 0}
+  .daynav>button{width:38px;height:58px;flex:none;font-size:20px;border-radius:12px;background:#1b202a;padding:0}
+  .daystrip{flex:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;min-width:0}
+  .dchip{height:58px;border-radius:12px;background:var(--card);border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0;min-width:0;cursor:pointer;transition:transform .12s;font-family:inherit}
+  .dchip:active{transform:scale(.95)}
+  .dchip .dw{font-size:8.5px;font-weight:800;letter-spacing:.2px;color:var(--dim);line-height:1}
+  .dchip .dn{font-size:15px;font-weight:800;line-height:1;color:var(--muted)}
+  .dchip.today .dn{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:2px}
+  .dchip.full{background:rgba(94,230,168,.10);border-color:rgba(94,230,168,.45)}
+  .dchip.full .dn{color:var(--green)}
+  .dchip.part{background:rgba(198,242,78,.07);border-color:rgba(198,242,78,.35)}
+  .dchip.part .dn{color:var(--accent)}
+  .dchip.rest .dn{color:#555e6d}
+  .dchip.sel{background:var(--accent-soft);border-color:var(--accent)}
+  .dchip.sel .dw,.dchip.sel .dn{color:var(--accent)}
+
+  /* ================= CARDIO ================= */
+  .cardio-time{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid #22262e}
+  .ct-label{font-size:13.5px;font-weight:700;color:var(--muted)}
+  .stepper{display:flex;align-items:center;gap:6px}
+  .st-btn{width:42px;height:42px;flex:none;border-radius:12px;background:#1b202a;border:1.5px solid var(--line);font-size:20px;font-weight:700;color:var(--txt);padding:0}
+  .st-btn:active{transform:scale(.95);background:#242b37}
+  .st-in{width:56px;height:42px;text-align:center;font-family:inherit;font-size:16px;font-weight:700;color:var(--txt);background:#0f1218;border:1.5px solid var(--line);border-radius:12px;padding:0 4px;appearance:textfield;-webkit-appearance:textfield;margin:0}
+  .st-in:focus{outline:none;border-color:var(--accent);background:#151920}
+  .st-in::-webkit-outer-spin-button,.st-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .st-unit{font-size:12px;font-weight:700;color:var(--dim)}
 
   details.day.flash{animation:flash 1.4s ease}
   @keyframes flash{0%,100%{box-shadow:0 0 0 0 rgba(198,242,78,0)}30%{box-shadow:0 0 0 3px rgba(198,242,78,.55)}}
@@ -255,7 +271,7 @@
 <header class="top">
   <div class="wrap top-in">
     <div class="top-row">
-      <h1>Treino Full Body<small>6 dias · definição · caminhada e corrida</small></h1>
+      <h1>Treino Full Body<small id="daySub">6 dias · definição · caminhada e corrida</small></h1>
       <div class="spacer"></div>
       <span class="pill" id="globalPill">Hoje</span>
     </div>
@@ -264,8 +280,6 @@
 </header>
 
 <div class="wrap">
-  <div class="stats" id="stats"></div>
-
   <div class="hint" id="hint">
     <b>Para não perder seus treinos:</b> abra esta página no Safari, toque em Compartilhar e escolha <b>Adicionar à Tela de Início</b>. Use sempre esse ícone. Navegadores dentro de apps (WhatsApp, Instagram) podem apagar os dados salvos.
     <button type="button" class="hint-x" data-close aria-label="Fechar">×</button>
@@ -273,7 +287,7 @@
 
   <details class="cal" id="calCard">
     <summary>
-      <span>Frequência</span>
+      <span>Frequência no mês</span>
       <span class="badge" id="calBadge">0/0</span>
       <span class="chev">›</span>
     </summary>
@@ -294,11 +308,10 @@
     </div>
   </details>
 
-  <div class="weekbar">
-    <button type="button" id="prevWeek" aria-label="Semana anterior">‹</button>
-    <b class="wlabel" id="weekLabel"></b>
-    <button type="button" id="nextWeek" aria-label="Próxima semana">›</button>
-    <button type="button" id="todayBtn">Hoje</button>
+  <div class="daynav">
+    <button type="button" id="prevDay" aria-label="Dia anterior">‹</button>
+    <div class="daystrip" id="dayStrip"></div>
+    <button type="button" id="nextDay" aria-label="Próximo dia">›</button>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -561,12 +574,12 @@
 
   /* ================= DOM ================= */
   const grid = document.getElementById("grid");
-  const statsEl = document.getElementById("stats");
   const hintEl = document.getElementById("hint");
   const calMonthEl = document.getElementById("calMonth");
   const calGrid = document.getElementById("calGrid");
   const calBadge = document.getElementById("calBadge");
-  const weekLabelEl = document.getElementById("weekLabel");
+  const dayStrip = document.getElementById("dayStrip");
+  const daySub = document.getElementById("daySub");
   const globalPill = document.getElementById("globalPill");
   const globalBar = document.getElementById("globalBar");
   const toastEl = document.getElementById("toast");
@@ -575,11 +588,13 @@
   const lbImg = document.getElementById("lbImg");
   const lbCap = document.getElementById("lbCap");
 
+  const WD = ["SEG", "TER", "QUA", "QUI", "SEX", "SÁB", "DOM"];
+  const WEEKDAYS = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
   const dayEls = [];
   let restEl = null;
-  let weekStart = mondayOf(today());
-  let calCursor = new Date(today().getFullYear(), today().getMonth(), 1);
-  let didInitOpen = false;
+  let selectedDate = today();
+  let weekStart = mondayOf(selectedDate);
+  let calCursor = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
 
   /* ================= CONSTRUCAO ================= */
   function buildGrid() {
@@ -648,6 +663,15 @@
               <span class="meta">${d.cardio}</span>
             </span>
           </label>
+        </div>
+        <div class="cardio-time">
+          <span class="ct-label">Tempo de cardio</span>
+          <div class="stepper">
+            <button type="button" class="st-btn" data-cardio-step="-5" aria-label="Menos 5 minutos">−</button>
+            <input class="st-in" data-cardio-min type="number" inputmode="numeric" min="0" max="600" step="5" placeholder="0" aria-label="Minutos de cardio">
+            <span class="st-unit">min</span>
+            <button type="button" class="st-btn" data-cardio-step="5" aria-label="Mais 5 minutos">+</button>
+          </div>
         </div>`;
       rows.appendChild(c);
 
@@ -678,8 +702,10 @@
   /* ================= RENDER ================= */
   function fmtDate(d) { return d.getDate() + " " + MONTHS_SHORT[d.getMonth()]; }
 
-  function renderWeek() {
+  function renderDays() {
     const t = today();
+    const selISO = isoOf(selectedDate);
+
     PLAN.forEach((d, di) => {
       const det = dayEls[di];
       const date = addDays(weekStart, di);
@@ -688,105 +714,82 @@
       det.querySelector("[data-date]").textContent = fmtDate(date);
       det.classList.toggle("today", sameDay(date, t));
 
-      const s = getSession(iso) || { done: {}, load: {} };
+      const sess = getSession(iso);
+      const doneMap = (sess && sess.done) || {};
+      const loadMap = (sess && sess.load) || {};
+
       det.querySelectorAll("input[type=checkbox]").forEach(chk => {
-        const on = !!s.done[chk.dataset.ei];
+        const on = !!doneMap[chk.dataset.ei];
         chk.checked = on;
         chk.closest(".ex").classList.toggle("done", on);
       });
       det.querySelectorAll("[data-load]").forEach(inp => {
-        inp.value = s.load[inp.dataset.ei] || "";
+        inp.value = loadMap[inp.dataset.ei] || "";
       });
+      const minInp = det.querySelector("[data-cardio-min]");
+      if (minInp) minInp.value = sess && sess.cardioMin ? String(sess.cardioMin) : "";
 
       const total = totalItems(di);
-      const done = Math.min(doneKeys(s).length, total);
+      const done = Math.min(doneKeys(sess).length, total);
       det.querySelector("[data-count]").textContent = done + "/" + total;
       det.querySelector("[data-bar]").style.width = (done / total * 100) + "%";
       det.classList.toggle("complete", done === total);
+
+      det.hidden = iso !== selISO;
     });
 
     if (restEl) {
       const sun = addDays(weekStart, 6);
-      restEl.dataset.date = isoOf(sun);
+      const sunISO = isoOf(sun);
+      restEl.dataset.date = sunISO;
       restEl.querySelector("[data-date]").textContent = fmtDate(sun);
       restEl.classList.toggle("today", sameDay(sun, t));
+      restEl.hidden = sunISO !== selISO;
     }
 
-    weekLabelEl.textContent = labelWeek();
-
-    if (!didInitOpen) {
-      const di = planIdx(t);
-      if (di >= 0 && dayEls[di]) dayEls[di].open = true;
-      else if (restEl) restEl.open = true;
-      didInitOpen = true;
-    }
-
+    renderDayStrip();
     renderHeader();
+    renderCalendar();
   }
 
-  function labelWeek() {
-    const a = weekStart, b = addDays(weekStart, 6);
-    const base = a.getMonth() === b.getMonth()
-      ? a.getDate() + "–" + b.getDate() + " de " + MONTHS[a.getMonth()]
-      : a.getDate() + " " + MONTHS_SHORT[a.getMonth()] + " – " + b.getDate() + " " + MONTHS_SHORT[b.getMonth()];
-    return base + " de " + b.getFullYear();
+  function renderDayStrip() {
+    const monday = mondayOf(selectedDate);
+    let html = "";
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(monday, i);
+      const iso = isoOf(d);
+      const di = planIdx(d);
+      let cls = "dchip";
+      if (sameDay(d, today())) cls += " today";
+      if (sameDay(d, selectedDate)) cls += " sel";
+      if (di >= 0) {
+        const total = totalItems(di);
+        const done = Math.min(doneCount(iso), total);
+        if (done >= total) cls += " full";
+        else if (done > 0) cls += " part";
+      } else {
+        cls += " rest";
+      }
+      html += '<button type="button" class="' + cls + '" data-date="' + iso + '" aria-label="' + WEEKDAYS[i] + ', ' + d.getDate() + ' de ' + MONTHS[d.getMonth()] + '">' +
+        '<span class="dw">' + WD[i] + '</span><span class="dn">' + d.getDate() + '</span></button>';
+    }
+    dayStrip.innerHTML = html;
   }
 
   function renderHeader() {
-    const t = today();
-    const di = planIdx(t);
+    const di = planIdx(selectedDate);
+    const plan = di >= 0 ? PLAN[di] : REST;
+    const wd = WEEKDAYS[di >= 0 ? di : 6];
+    daySub.textContent = wd + ", " + selectedDate.getDate() + " de " + MONTHS[selectedDate.getMonth()] + " · " + plan.title;
     if (di < 0) {
       globalPill.textContent = "Descanso";
       globalBar.style.width = "0%";
       return;
     }
     const total = totalItems(di);
-    const done = Math.min(doneCount(isoOf(t)), total);
-    globalPill.textContent = done + "/" + total + " hoje";
+    const done = Math.min(doneCount(isoOf(selectedDate)), total);
+    globalPill.textContent = done + "/" + total;
     globalBar.style.width = (done / total * 100) + "%";
-  }
-
-  function computeStreak() {
-    let cur = today();
-    let streak = 0;
-    for (let i = 0; i < 500; i++) {
-      const di = planIdx(cur);
-      if (di >= 0) {
-        if (isComplete(isoOf(cur))) streak++;
-        else if (!sameDay(cur, today())) break;
-      }
-      if (state.started && isoOf(cur) <= state.started) break;
-      cur = addDays(cur, -1);
-    }
-    return streak;
-  }
-
-  function renderStats() {
-    const t = today();
-    const di = planIdx(t);
-    const totalToday = di >= 0 ? totalItems(di) : 0;
-    const doneToday = Math.min(doneCount(isoOf(t)), totalToday);
-
-    let wDone = 0;
-    for (let i = 0; i < 6; i++) {
-      if (isComplete(isoOf(addDays(weekStart, i)))) wDone++;
-    }
-
-    let mDone = 0, mSched = 0;
-    for (let day = 1; day <= t.getDate(); day++) {
-      const date = new Date(t.getFullYear(), t.getMonth(), day);
-      if (planIdx(date) >= 0) {
-        mSched++;
-        if (isComplete(isoOf(date))) mDone++;
-      }
-    }
-
-    const streak = computeStreak();
-    statsEl.innerHTML =
-      '<div class="stat hl"><b>' + (totalToday ? doneToday + "/" + totalToday : "—") + '</b><span>Hoje</span></div>' +
-      '<div class="stat"><b>' + wDone + "/6" + '</b><span>Semana</span></div>' +
-      '<div class="stat"><b>' + streak + '</b><span>Sequência</span></div>' +
-      '<div class="stat"><b>' + mDone + "/" + mSched + '</b><span>Mês</span></div>';
   }
 
   function renderCalendar() {
@@ -808,6 +811,7 @@
       const iso = isoOf(date);
       const di = planIdx(date);
       const isToday = sameDay(date, t);
+      const isSel = sameDay(date, selectedDate);
       let cls = "cal-day", sub = "", label = day + " de " + MONTHS[m];
 
       if (di < 0) {
@@ -828,6 +832,7 @@
         }
       }
       if (isToday) cls += " today";
+      if (isSel) cls += " sel";
       html += '<button type="button" class="' + cls + '" data-date="' + iso + '" aria-label="' + label + '">' + day + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
     }
 
@@ -838,8 +843,34 @@
     calBadge.textContent = monthComplete + "/" + monthSched;
   }
 
+  /* ================= NAVEGACAO ================= */
+  function selectDate(d, scroll) {
+    selectedDate = cloneDate(d);
+    weekStart = mondayOf(selectedDate);
+    calCursor = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+    const di = planIdx(selectedDate);
+    const el = di >= 0 ? dayEls[di] : restEl;
+    if (el) el.open = true;
+    renderDays();
+    if (scroll && el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function shiftMonth(n) {
+    calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth() + n, 1);
+    renderCalendar();
+  }
+
+  function onCalendarClick(e) {
+    const cell = e.target.closest("[data-date]");
+    if (!cell) return;
+    selectDate(parseISO(cell.dataset.date), true);
+  }
+
   /* ================= EVENTOS ================= */
   function onCheck(e) {
+    const min = e.target.closest("[data-cardio-min]");
+    if (min) { commitCardio(min); return; }
+
     const chk = e.target;
     if (!chk.matches("input[type=checkbox]")) return;
     const det = chk.closest("details.day");
@@ -848,7 +879,7 @@
     const s = ensureSession(iso);
     const ei = chk.dataset.ei;
     if (chk.checked) s.done[ei] = true; else delete s.done[ei];
-    save(); renderWeek(); renderStats(); renderCalendar();
+    save(); renderDays();
     if (chk.checked) {
       const di = planIdx(parseISO(iso));
       if (di >= 0 && doneKeys(s).length >= totalItems(di)) toast("Dia completo!");
@@ -867,7 +898,60 @@
     save();
   }
 
+  function onCardioInput(e) {
+    const inp = e.target.closest("[data-cardio-min]");
+    if (!inp) return;
+    const det = inp.closest("details.day");
+    if (!det || !det.dataset.date) return;
+    const s = ensureSession(det.dataset.date);
+    let v = parseInt(inp.value, 10);
+    if (isNaN(v) || v < 0) { delete s.cardioMin; }
+    else if (v > 600) { s.cardioMin = 600; }
+    else if (v > 0) { s.cardioMin = v; }
+    else { delete s.cardioMin; }
+    save();
+  }
+
+  function commitCardio(inp) {
+    const det = inp.closest("details.day");
+    if (!det || !det.dataset.date) return;
+    const iso = det.dataset.date;
+    const s = ensureSession(iso);
+    let v = parseInt(inp.value, 10);
+    if (isNaN(v) || v < 0) v = 0;
+    if (v > 600) v = 600;
+    v = Math.round(v / 5) * 5;
+    if (v > 0) { s.cardioMin = v; s.done.cardio = true; }
+    else { delete s.cardioMin; }
+    save(); renderDays();
+    if (v > 0) {
+      const di = planIdx(parseISO(iso));
+      if (di >= 0 && doneKeys(s).length >= totalItems(di)) toast("Dia completo!");
+    }
+  }
+
+  function onCardioStep(btn) {
+    const det = btn.closest("details.day");
+    if (!det || !det.dataset.date) return;
+    const iso = det.dataset.date;
+    const s = ensureSession(iso);
+    let v = parseInt(s.cardioMin || "0", 10) || 0;
+    v += parseInt(btn.dataset.cardioStep, 10);
+    if (v < 0) v = 0;
+    if (v > 600) v = 600;
+    if (v > 0) { s.cardioMin = v; s.done.cardio = true; }
+    else { delete s.cardioMin; }
+    save(); renderDays();
+    if (v > 0) {
+      const di = planIdx(parseISO(iso));
+      if (di >= 0 && doneKeys(s).length >= totalItems(di)) toast("Dia completo!");
+    }
+  }
+
   function onGridClick(e) {
+    const stepBtn = e.target.closest("[data-cardio-step]");
+    if (stepBtn) { onCardioStep(stepBtn); return; }
+
     const img = e.target.closest(".media img");
     if (!img) return;
     lbImg.src = img.dataset.full;
@@ -883,52 +967,10 @@
     lbImg.src = "";
   }
 
-  function shiftWeek(n) {
-    weekStart = addDays(weekStart, n);
-    calCursor = new Date(weekStart.getFullYear(), weekStart.getMonth(), 1);
-    renderWeek(); renderCalendar();
-  }
-
-  function goToday() {
-    const t = today();
-    weekStart = mondayOf(t);
-    calCursor = new Date(t.getFullYear(), t.getMonth(), 1);
-    renderWeek(); renderCalendar();
-    const di = planIdx(t);
-    if (di >= 0 && dayEls[di]) {
-      dayEls[di].open = true;
-      dayEls[di].scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }
-
-  function shiftMonth(n) {
-    calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth() + n, 1);
-    renderCalendar();
-  }
-
-  function onCalendarClick(e) {
-    const cell = e.target.closest("[data-date]");
-    if (!cell) return;
-    const d = parseISO(cell.dataset.date);
-    const di = planIdx(d);
-    weekStart = mondayOf(d);
-    calCursor = new Date(d.getFullYear(), d.getMonth(), 1);
-    renderWeek(); renderCalendar();
-    if (di < 0) {
-      if (restEl) { restEl.open = true; restEl.scrollIntoView({ behavior: "smooth", block: "center" }); }
-      return;
-    }
-    const det = dayEls[di];
-    det.open = true;
-    det.classList.add("flash");
-    setTimeout(() => det.classList.remove("flash"), 1400);
-    det.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
   function onReset() {
     if (!confirm("Apagar as marcações e cargas da semana exibida?")) return;
     for (let i = 0; i < 6; i++) delete state.sessions[isoOf(addDays(weekStart, i))];
-    save(); renderWeek(); renderStats(); renderCalendar();
+    save(); renderDays();
     toast("Semana limpa");
   }
 
@@ -963,7 +1005,7 @@
         if (!confirm("Importar " + n + " dia(s) de treino? Dias iguais serão substituídos.")) return;
         Object.assign(state.sessions, p.sessions);
         if (p.started && (!state.started || p.started < state.started)) state.started = p.started;
-        save(); renderWeek(); renderStats(); renderCalendar();
+        save(); renderDays();
         toast("Backup importado");
       } catch (err) {
         alert("Arquivo inválido.");
@@ -1002,6 +1044,7 @@
   function attachEvents() {
     grid.addEventListener("change", onCheck);
     grid.addEventListener("input", onLoadInput);
+    grid.addEventListener("input", onCardioInput);
     grid.addEventListener("click", onGridClick);
 
     document.getElementById("btnPrint").addEventListener("click", () => window.print());
@@ -1010,9 +1053,12 @@
     document.getElementById("btnImport").addEventListener("click", () => fileInput.click());
     fileInput.addEventListener("change", onImportFile);
 
-    document.getElementById("prevWeek").addEventListener("click", () => shiftWeek(-7));
-    document.getElementById("nextWeek").addEventListener("click", () => shiftWeek(7));
-    document.getElementById("todayBtn").addEventListener("click", goToday);
+    document.getElementById("prevDay").addEventListener("click", () => selectDate(addDays(selectedDate, -1)));
+    document.getElementById("nextDay").addEventListener("click", () => selectDate(addDays(selectedDate, 1)));
+    dayStrip.addEventListener("click", e => {
+      const b = e.target.closest("[data-date]");
+      if (b) selectDate(parseISO(b.dataset.date));
+    });
 
     document.getElementById("calPrev").addEventListener("click", () => shiftMonth(-1));
     document.getElementById("calNext").addEventListener("click", () => shiftMonth(1));
@@ -1027,9 +1073,13 @@
   buildGrid();
   attachEvents();
   save();
-  renderWeek();
-  renderStats();
-  renderCalendar();
+  selectedDate = today();
+  weekStart = mondayOf(selectedDate);
+  calCursor = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+  const firstDi = planIdx(selectedDate);
+  const firstEl = firstDi >= 0 ? dayEls[firstDi] : restEl;
+  if (firstEl) firstEl.open = true;
+  renderDays();
   initHint();
 })();
 </script>
