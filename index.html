@@ -78,8 +78,8 @@
     padding:6px 10px;border-radius:10px;background:#242b37;color:#b9c3d2;flex:none;
   }
   .today .wd{background:var(--accent);color:#12160a}
-  .t{font-size:17px;font-weight:700;letter-spacing:-.1px}
-  .f{font-size:13.5px;color:var(--muted);margin-top:2px}
+  .t{display:block;font-size:17px;font-weight:700;letter-spacing:-.1px}
+  .f{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
   .s-right{display:flex;align-items:center;gap:8px;flex:none}
   .cnt{font-size:14px;font-weight:800;color:var(--muted)}
   .complete .cnt{color:var(--green)}
@@ -166,6 +166,7 @@
   details.notes>summary::after{content:"+";margin-left:auto;color:var(--dim);font-weight:400;font-size:22px}
   details.notes[open]>summary::after{content:"–"}
   .notes-body{padding:0 16px 16px;display:grid;gap:14px}
+  .settings .actions{margin:0}
   .note{display:grid;gap:3px;padding-left:13px;border-left:2px solid #2f3745}
   .note b{font-size:14.5px;color:var(--accent);font-weight:700}
   .note span{font-size:15px;color:#c3cad6;line-height:1.5}
@@ -197,7 +198,7 @@
   @media print{
     body{background:#fff;color:#000}
     header.top{position:static;background:#fff}
-    .actions,.kg,.st-in,.st-btn,.lb,.toast,.hint,.cal,.daynav,.cardio-time{display:none!important}
+    .actions,.settings,.kg,.st-in,.st-btn,.lb,.toast,.hint,.cal,.daynav,.cardio-time{display:none!important}
     details.day{break-inside:avoid;background:#fff;border-color:#bbb}
     details.day>summary{color:#000}
     .name,.f,.meta,.cue{color:#000}
@@ -263,6 +264,13 @@
   .st-in::-webkit-outer-spin-button,.st-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .st-unit{font-size:12px;font-weight:700;color:var(--dim)}
 
+  /* Anotações */
+  .note-box{padding:12px 14px 4px;border-top:1px solid #22262e}
+  .note-lbl{display:block;font-size:13.5px;font-weight:700;color:var(--muted);margin-bottom:7px}
+  .note-in{display:block;width:100%;min-height:92px;resize:vertical;background:#0f1218;border:1.5px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:16px;line-height:1.45;padding:10px 12px;appearance:none;-webkit-appearance:none}
+  .note-in::placeholder{color:#5c6575}
+  .note-in:focus{outline:none;border-color:var(--accent);background:#151920}
+
   details.day.flash{animation:flash 1.4s ease}
   @keyframes flash{0%,100%{box-shadow:0 0 0 0 rgba(198,242,78,0)}30%{box-shadow:0 0 0 3px rgba(198,242,78,.55)}}
 </style>
@@ -318,12 +326,17 @@
 
   <div class="grid" id="grid"></div>
 
-  <div class="actions">
-    <button id="btnPrint">🖨️ Imprimir</button>
-    <button id="btnExport">Exportar backup</button>
-    <button id="btnImport">Importar backup</button>
-    <button class="danger" id="btnReset">🧹 Limpar semana</button>
-  </div>
+  <details class="notes settings">
+    <summary>Configurações</summary>
+    <div class="notes-body">
+      <div class="actions">
+        <button id="btnPrint">🖨️ Imprimir</button>
+        <button id="btnExport">Exportar backup</button>
+        <button id="btnImport">Importar backup</button>
+        <button class="danger" id="btnReset">🧹 Limpar semana</button>
+      </div>
+    </div>
+  </details>
   <input type="file" id="fileInput" accept="application/json,.json" hidden>
 
   <details class="notes">
@@ -361,7 +374,7 @@
 
   /* ================= DADOS ================= */
   const PLAN = [
-    { wd:"SEG", day:"Segunda", title:"Full Body A", focus:"Peito e quadríceps",
+    { wd:"SEG", day:"Segunda", title:"Hoje é dia de Peito e Quadríceps", focus:"Peito e quadríceps",
       items:[
         {n:"Agachamento livre", s:"3", r:"8–10", img:"Barbell_Squat",
          cue:"Barra alta nos ombros, pés na largura dos ombros. Desça controlando até as coxas ficarem paralelas ao chão, joelhos alinhados aos pés."},
@@ -380,7 +393,7 @@
       ],
       cardio:"20 min de caminhada inclinada." },
 
-    { wd:"TER", day:"Terça", title:"Full Body B", focus:"Costas e posterior de coxa",
+    { wd:"TER", day:"Terça", title:"Hoje é dia de Costas, Posterior + Cardio", focus:"Costas e posterior de coxa",
       items:[
         {n:"Levantamento terra romeno", s:"3", r:"8–10", img:"Romanian_Deadlift",
          cue:"Joelhos semiflexionados, quadril para trás. Barra rente às pernas; sinta o alongamento no posterior."},
@@ -399,7 +412,7 @@
       ],
       cardio:"15–20 min de corrida leve." },
 
-    { wd:"QUA", day:"Quarta", title:"Full Body C", focus:"Técnica, mobilidade e recuperação ativa",
+    { wd:"QUA", day:"Quarta", title:"Hoje é dia de Técnica e Mobilidade", focus:"Técnica, mobilidade e recuperação ativa",
       items:[
         {n:"Leg press", s:"2", r:"12", img:"Leg_Press",
          cue:"Pés na largura dos ombros. Desça até ~90° sem descolar o quadril do apoio."},
@@ -418,7 +431,7 @@
       ],
       cardio:"30 min de caminhada moderada. Cargas leves, sem buscar recordes." },
 
-    { wd:"QUI", day:"Quinta", title:"Full Body A", focus:"Pernas e peito",
+    { wd:"QUI", day:"Quinta", title:"Hoje é dia de Pernas e Peito", focus:"Pernas e peito",
       items:[
         {n:"Agachamento no Smith", s:"3", r:"10", img:"Smith_Machine_Squat",
          cue:"Pés um pouco à frente da barra. Desça controlado até ~90°, joelhos alinhados."},
@@ -437,7 +450,7 @@
       ],
       cardio:"20 min de caminhada inclinada." },
 
-    { wd:"SEX", day:"Sexta", title:"Full Body B", focus:"Costas e posterior de coxa",
+    { wd:"SEX", day:"Sexta", title:"Hoje é dia de Costas, Posterior e Glúteo", focus:"Costas e posterior de coxa",
       items:[
         {n:"Cadeira flexora", s:"3", r:"12", img:"Seated_Leg_Curl",
          cue:"Costas apoiadas. Flexione os joelhos até onde conseguir com controle."},
@@ -456,7 +469,7 @@
       ],
       cardio:"15–20 min de corrida leve." },
 
-    { wd:"SÁB", day:"Sábado", title:"Full Body C", focus:"Condicionamento e trabalho complementar",
+    { wd:"SÁB", day:"Sábado", title:"Hoje é dia de Condicionamento + Cardio", focus:"Condicionamento e trabalho complementar",
       items:[
         {n:"Agachamento goblet", s:"2", r:"12", img:"Goblet_Squat",
          cue:"Halter junto ao peito. Desça entre os joelhos mantendo o tronco ereto."},
@@ -476,7 +489,7 @@
       cardio:"30–40 min de caminhada ou corrida leve, conforme a recuperação." }
   ];
 
-  const REST = { wd:"DOM", day:"Domingo", title:"Descanso", focus:"Descanso da musculação · caminhada leve opcional" };
+  const REST = { wd:"DOM", day:"Domingo", title:"Hoje é dia de Descanso", focus:"Descanso da musculação · caminhada leve opcional" };
 
   /* ================= UTIL ================= */
   const pad = n => String(n).padStart(2, "0");
@@ -611,7 +624,7 @@
             <span class="wd">${d.wd}</span>
             <span>
               <span class="t">${d.title}</span>
-              <span class="f"><span data-date></span> · ${d.focus}</span>
+              <span class="f"><span data-date></span></span>
             </span>
           </span>
           <span class="s-right">
@@ -677,6 +690,13 @@
         </div>`;
       rows.appendChild(c);
 
+      const nb = document.createElement("div");
+      nb.className = "note-box";
+      nb.innerHTML = `
+        <label class="note-lbl" for="note-${di}">Anotações do dia</label>
+        <textarea class="note-in" id="note-${di}" data-note rows="3" placeholder="Escreva aqui o que quiser sobre este treino..."></textarea>`;
+      rows.appendChild(nb);
+
       grid.appendChild(det);
       dayEls[di] = det;
     });
@@ -730,6 +750,8 @@
       });
       const minInp = det.querySelector("[data-cardio-min]");
       if (minInp) minInp.value = sess && sess.cardioMin ? String(sess.cardioMin) : "";
+      const noteEl = det.querySelector("[data-note]");
+      if (noteEl) noteEl.value = (sess && sess.note) || "";
 
       const total = totalItems(di);
       const done = Math.min(doneKeys(sess).length, total);
@@ -847,12 +869,16 @@
 
   /* ================= NAVEGACAO ================= */
   function selectDate(d, scroll) {
+    const changed = !sameDay(d, selectedDate);
     selectedDate = cloneDate(d);
     weekStart = mondayOf(selectedDate);
     calCursor = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+    if (changed) {
+      dayEls.forEach(x => { if (x) x.open = false; });
+      if (restEl) restEl.open = false;
+    }
     const di = planIdx(selectedDate);
     const el = di >= 0 ? dayEls[di] : restEl;
-    if (el) el.open = true;
     renderDays();
     if (scroll && el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -897,6 +923,16 @@
     const ei = inp.dataset.ei;
     const v = inp.value.trim();
     if (v) s.load[ei] = v; else delete s.load[ei];
+    save();
+  }
+
+  function onNoteInput(e) {
+    const ta = e.target.closest("[data-note]");
+    if (!ta) return;
+    const det = ta.closest("details.day");
+    if (!det || !det.dataset.date) return;
+    const s = ensureSession(det.dataset.date);
+    if (ta.value.trim()) s.note = ta.value; else delete s.note;
     save();
   }
 
@@ -970,7 +1006,7 @@
   }
 
   function onReset() {
-    if (!confirm("Apagar as marcações e cargas da semana exibida?")) return;
+    if (!confirm("Apagar marcações, cargas e anotações da semana exibida?")) return;
     for (let i = 0; i < 6; i++) delete state.sessions[isoOf(addDays(weekStart, i))];
     save(); renderDays();
     toast("Semana limpa");
@@ -1047,6 +1083,7 @@
     grid.addEventListener("change", onCheck);
     grid.addEventListener("input", onLoadInput);
     grid.addEventListener("input", onCardioInput);
+    grid.addEventListener("input", onNoteInput);
     grid.addEventListener("click", onGridClick);
 
     document.getElementById("btnPrint").addEventListener("click", () => window.print());
@@ -1078,9 +1115,6 @@
   selectedDate = today();
   weekStart = mondayOf(selectedDate);
   calCursor = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-  const firstDi = planIdx(selectedDate);
-  const firstEl = firstDi >= 0 ? dayEls[firstDi] : restEl;
-  if (firstEl) firstEl.open = true;
   renderDays();
   initHint();
 })();
